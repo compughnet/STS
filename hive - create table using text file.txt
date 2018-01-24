@@ -1,0 +1,109 @@
+CREATE TABLE dimperiod
+(
+PERIODID int,
+Date1 date,
+DAYNUMBER int,
+DAYDESCRIPTION string,
+WEEKNUMBER int,
+WEEKDESCRIPTION string,
+MONTHNUMBER int,
+CALENDARMONTHNUMBER int,
+MONTHDESCRIPTION string,
+CALENDARMONTHDESCRIPTION string,
+QUARTERNUMBER int,
+CALENDARQUARTERNUMBER int,
+QUARTERDESCRIPTION string,
+CALENDARQUARTERDESCRIPTION string,
+YEARNUMBER int,
+CALENDARYEARNUMBER int,
+YEARWEEKDESCRIPTION string,
+YEARMONTH string,
+CALENDARYEARMONTH string,
+YEARMONTHDESCRIPTION string,
+CALENDARYEARMONTHDESCRIPTION string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA LOCAL INPATH '/usr/sap/MV1/home/dimperiod.txt'
+OVERWRITE INTO TABLE dimperiod;    
+
+———————————————————————————————
+
+create table customer (CustID int,Company string, Name string, Address_Line1 string,Address_Line2 string, Postcode string, City string, Country string) partitioned by (Country string)
+
+create table Shops (stor_id  string, stor_name string, stor_address string, city string, state string, country string, postalcode string, payterms string)
+
+------------------------------------------------------------------
+create table STS_DIMCUSTOMER
+(
+CUSTOMERID int,
+CITYID int,
+COUNTRYID int,
+REGIONID int,
+CUSTOMER string,
+SPARE string,
+CITYNAME string,
+COUNTRYNAME string,
+REGIONNAME string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA INPATH '/data/STS_DIMCUSTOMER.csv'
+OVERWRITE INTO TABLE STS_DIMCUSTOMER;    
+
+------------------------------------------------------------------
+create table STS_DIMPRODUCT
+(
+PRODUCTID int,
+CATEGORYID int,
+LINEID int,
+PRODUCTNAME string,
+PRODUCTDESCRIPTION string,
+CATEGORYNAME string,
+CATEGORYDESCRIPTION string,
+LINENAME string,
+LINEDESCRIPTION string,
+DISCONTINUED string,
+CAPACITY string,
+SCREENSIZE string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA INPATH '/data/STS_DIMPRODUCT.csv'
+OVERWRITE INTO TABLE STS_DIMPRODUCT;  
+
+------------------------------------------------------------------
+create table STS_FCTCUSTOMERORDER
+(
+ORDERID int,
+PRODUCTID int,
+CUSTOMERID int,
+EMPLOYEEID int,
+PROMOTIONID int,
+TERRITORYID int,
+ORDERPERIODID int,
+REQUIREDPERIODID int,
+SHIPPEDPERIODID int,
+SHIPPERID int,
+UNITPRICE int,
+QUANTITY int,
+DISCOUNT int,
+UNITSALES int,
+NETSALES int,
+UNITCOST int,
+FREIGHT int,
+COST int,
+QUANTITYORDERED int,
+DELIVEREDPERIODID int
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA INPATH '/data/STS_FCTCUSTOMERORDER.csv'
+OVERWRITE INTO TABLE STS_FCTCUSTOMERORDER;  
+
+
+
