@@ -105,5 +105,6 @@ tblproperties("skip.header.line.count"="1");
 LOAD DATA INPATH '/data/STS_FCTCUSTOMERORDER.csv'
 OVERWRITE INTO TABLE STS_FCTCUSTOMERORDER;  
 
+--this file
 
 
